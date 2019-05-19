@@ -1,0 +1,46 @@
+{
+    "EbsOptimized": false, 
+    "BlockDeviceMappings": [
+        {
+            "DeviceName": "/dev/sda1",
+            "Ebs": {
+                "DeleteOnTermination": true,
+                "VolumeSize": 10,
+                "VolumeType": "gp2"
+            }
+        }
+    ],
+    "NetworkInterfaces": [ 
+        {
+            "AssociatePublicIpAddress": true, 
+            "DeleteOnTermination": true,
+            "Description": "",
+            "DeviceIndex": 0,
+            "Groups": [
+                "sg-57714324"
+            ],
+            "SubnetId": "subnet-f19b2fab" 
+        }
+    ],
+    "ImageId": "ami-0e12cbde3e77cbb98",
+    "InstanceType": "t2.micro",
+    "KeyName": "MyREDHAT",
+    "Placement": {
+        "AvailabilityZone": "eu-west-1a",
+        "Tenancy": "default"
+    },
+    "TagSpecifications": [
+        {
+            "ResourceType": "instance",
+            "Tags": [
+                {
+                    "Key": "Name",
+                    "Value": "prueba2" 
+                }
+            ]
+        }
+    ],
+    "CreditSpecification": {
+        "CpuCredits": "standard"
+    }
+}
