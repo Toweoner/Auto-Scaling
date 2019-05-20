@@ -1,10 +1,18 @@
 #!/bin/bash
+### SCRIPT PARA LA ACTUALIZACION DE LA ZONA DNS ###
+## variables ###
+# Nombre del host #
 name=$1
+# Nombre de la instancia #
 name_aws=`echo $2 | tr -s "_" "-"`
+# Direccion IP de la instancia #
 ip=$3
+# Direccion IP del servidor DNS #
 dns=$4
+# Ruta del fichero 
 zone_path=$5
 
+# Conexion con el dns y modificacion de la zona  #
 ssh -i /Auto-Scaling/keys/MyREDHAT.pem -o "StrictHostKeyChecking no" root@$dns '
 
 rm -f '${zone_path}'.back
