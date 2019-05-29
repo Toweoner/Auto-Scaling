@@ -25,7 +25,7 @@ case "$3" in
 			HARD)
 				echo "$1 - $2 METAPOED" >> /tmp/service.state
 				echo "$1 - $2 DEPLOYING AWS" >> /tmp/service.state
-				/aws/scripts/auto-scaling.sh >> /tmp/salida 2> /tmp/error
+				/Auto-Scaling/scripts/auto-scaling.sh >> /tmp/salida 2> /tmp/error
 				;;
 		esac
 		;;
