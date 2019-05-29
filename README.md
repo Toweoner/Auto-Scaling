@@ -43,38 +43,38 @@ Equipos utilizados para la realizacion del projecto:
 3. [Generar archivo de configuración para definir hosts y servicios.](#n3)
 
 <a name="n1"></a> Dentro del archivo de configuracion de nagios (  *nagios.cfg* ), debemos tener los siguientes parametros: 
-~~
+~~~~
 check_external_commnads=1
-~~
+~~~~
 
 <a name="n2"></a> Por otro lado, en el archivo *commands.cfg* definimos lo siguiente:
 - ***check_remote_load*** &mdash; Permite monitorizar la carga del procesador en un servidor remoto. Para ello utiliza el ***NRPE Plugin***.
-~~
+~~~~
 define command{
         command_name check_remote_load
         command_line \$USER1\$/check_nrpe -H '$HOSTADDRESS$' -c check_load
 }
-~~
+~~~~
 - ***nagios-cpu-handler*** &mdash; Ejecuta el script ***nagios-cpu-handler.sh***, el cual realiza una determinada acción cuando el servidor esta en un estado en concreto.
-~~
+~~~~
 define command{
         command_name nagios-cpu-handler
         command_line /Auto-Scaling/nagios-cpu-handler.sh '$HOSTNAME$' '$HOSTADDRESS$' '$SERVICESTATE$' '$SERVICESTATETYPE$$
 }
-~~
+~~~~
 
 <a name="n3"></a> A continuacion, creamos un archivo de configuración dentro del directorio */etc/nagios3/conf.d/*. Por ejemplo, *gobierno.cfg* y le añadimos lo siguiente:
 - Hay que definir un grupo de host los cuales seran los que escalaremos.
-~~
+~~~~
 define hostgroup{
         hostgroup_name          nodes
         alias                   Nodos Dinamicos
         members                 web1
 }
-~~
+~~~~
 - Los servicios que queramos tener monitorizando los servidores.
 - Definimos el servicio *Load* el cual ejecutara como *event_handler* el comando *nagios-cpu-handler* y como *check_command* definimos el comando *check_remote_load*:
-~~
+~~~~
 define service {
         hostgroup_name                 nodes
         service_description            Load
@@ -83,34 +83,34 @@ define service {
         use                            generic-service
         notification_interval          0
 }
-~~
+~~~~
 - Hay que definir tambien el host que queremos escalar. Como ejemplo, dicho host tiene la direccion 192.168.1.50.
-~~
+~~~~
 define host{
         use                     generic-host            ; Name of host template to use
         host_name               web1
         alias                   web1
         address                 192.168.1.50
 }
-~~
+~~~~
 
 Debemos asegurarnos que el servicio este iniciado:
-~~
+~~~~
 systemctl start nagios3
-~~
+~~~~
 ### <a name="nrpe"></a> Nagios NRPE Server
 Es necesario editar el fichero de configuracion de este servicio para permitir a unos host contactar con el demonio NRPE. Por ello añadimos al fichero */etc/nagios/nrpe.cfg* lo siguiente:q:
-~~
+~~~~
 allowed_hosts=127.0.0.1,192.168.1.0/24
-~~
+~~~~
 Por ultimo, asegurarnos que el servicio este iniciado:
-~~
+~~~~
 systemctl start nagios-nrpe-server
-~~
+~~~~
 
 ### <a name="h"></a> Haproxy
 El fichero de configuración de Haproxy */etc/haproxy/haproxy.cfg* debe estar configurado para balancear la carga entre los nuevos servidores que vayan añadiendose. Configuracion de ejemplo:
-~~
+~~~~
 global
         daemon
         maxconn 1024
@@ -134,7 +134,7 @@ listen  balanceador
         stats auth      admin:admin
         balance roundrobin
         server web1            192.168.1.50:80
-~~
+~~~~
 
 ### <a name="a"></a> AWS
 AWS-CLI debe estar configurado en el equipo. https://docs.aws.amazon.com/es_es/cli/latest/userguide/cli-chap-install.html
