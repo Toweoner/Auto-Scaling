@@ -2,7 +2,7 @@
 
 > Esto proyecto ha sido diseñado por Javier Porrón, estudiante de 2 ASIR en el IES Arcipreste de Hita. 
 
-***"Hibryd Auto-Scaling"*** es un conjunto de utilidades las cuales permiten escalar un servidor fiscio/virtualizado a AWS.
+***"Hibryd Auto-Scaling"*** es un conjunto de utilidades las cuales permiten escalar un servidor fiscio/virtualizado a AWS y balancear la carga entre el servidor y la instancia AWS.
 
 ## Requerimientos para la instalacion y configuracionde Hybrid Auto-Scaling.
 - [Bind9 DNS Server](https://www.isc.org/downloads/bind/) &mdash; Este proyecto utiliza Bind9 para la resolucion de nombres.
