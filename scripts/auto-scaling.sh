@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## Variables ##
-source main.cfg
+source /Auto-Scaling/scripts/main.cfg
 num_script=1
 
 ## Control de Errores ##
@@ -16,7 +16,7 @@ do
 	
 	# Numero de Plantilla #
 	num_temp=`ls /Auto-Scaling/templates/${h}_* | wc -l` 2>> /tmp/error.log
-	let num_temp--	2>> error.log
+	let num_temp--	2>> /tmp/error.log
 
 	# Nombre de la instancia #
 	name="${h}_${num_temp}_AWS" 2>> /tmp/error.log
@@ -28,7 +28,7 @@ do
 	script="SCRIPT${num_script}" 2>> /tmp/error.log
 	
 	# Recarga de variables #
-	source main.cfg
+	source /Auto-Scaling/scripts/main.cfg
 	
 	# Crear instancia y provisionar #
 	bash /Auto-Scaling/scripts/letsgocloud.sh ${!template} ${!script} 2>> /tmp/error.log
@@ -37,7 +37,7 @@ do
 	bash /Auto-Scaling/scripts/update_nagios.sh $name $NAGIOS 2>> /tmp/error.log
 	
 	# Recarga de variables #
-	source main.cfg
+	source /Auto-Scaling/scripts/main.cfg
 	
 	# Nombre de la varaible IP #
 	ip="IP_${name}" 2>> /tmp/error.log

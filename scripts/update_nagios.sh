@@ -15,7 +15,7 @@ echo IP_$name'="'$ip'"' >> /Auto-Scaling/scripts/main.cfg
 # Añadir nuevo host #
 cat<<EOF>>$file
 define host{
-	use			generic-host
+	use			linux-server
 	host_name		${name}
 	alias			${name}
 	address			${ip}
@@ -23,4 +23,4 @@ define host{
 EOF
 
 # Reiniciar servicio #
-ssh -i /Auto-Scaling/keys/MyREDHAT.pem -o "StrictHostKeyChecking no" root@localhost 'systemctl reload nagios3'
+ssh -i /Auto-Scaling/keys/MyREDHAT.pem -o "StrictHostKeyChecking no" root@localhost 'systemctl reload nagios'

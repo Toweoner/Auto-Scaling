@@ -41,4 +41,4 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
 done < /Auto-Scaling/templates/cloud.json
 
 # Crear variable TEMPLATE en el ficheor main.cfg #
-echo 'TEMPLATE_'$new_name'="/Auto-Scaling/templates/'$new_name'.json"' >> main.cfg
+echo 'TEMPLATE_'$new_name'="/Auto-Scaling/templates/'$new_name'.json"' >> /Auto-Scaling/scripts/main.cfg
